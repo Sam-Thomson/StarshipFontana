@@ -49,6 +49,8 @@ private:
   list<shared_ptr<SFAsset> > walls2;
   list<shared_ptr<SFAsset> > keys;
   list<shared_ptr<SFAsset> > stars;
+  list<shared_ptr<SFAsset> > messages;
+  list<shared_ptr<SFAsset> > messages1;
 
   int fire;
 };

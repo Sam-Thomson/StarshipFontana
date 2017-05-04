@@ -1,5 +1,6 @@
 #include "SFApp.h"
 int i = 0;
+int gamestatus = 0;
 SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_window(window) {
   int canvas_w, canvas_h;
   SDL_GetRendererOutputSize(sf_window->getRenderer(), &canvas_w, &canvas_h);
@@ -111,6 +112,15 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   star->SetPosition(star_pos);
   stars.push_back(star);
 
+  auto message = make_shared<SFAsset>(SFASSET_MESSAGE, sf_window);
+  auto message_pos  = Point2((canvas_w/2), canvas_h/2);
+  message->SetPosition(message_pos);
+  messages.push_back(message);
+
+  auto message1 = make_shared<SFAsset>(SFASSET_MESSAGE1, sf_window);
+  auto message1_pos  = Point2((canvas_w/2), canvas_h/2);
+  message1->SetPosition(message1_pos);
+  messages1.push_back(message1);
 }
 
 SFApp::~SFApp() {
@@ -357,6 +367,7 @@ for(auto p : projectiles) {
       if(s->CollidesWith(player)) {
         s->HandleCollisionPandS();
         player->HandleCollision();
+        gamestatus = 2;
       } 
  } 
     for(auto w : walls) {
@@ -376,7 +387,7 @@ for(auto p : projectiles) {
     if(p->CollidesWith(player)) {
       p->HandleCollision();
       player->HandleCollision();
-      cout<<"GAME OVER"<<endl;
+      gamestatus = 1;
     }
 }
   
@@ -384,7 +395,7 @@ for(auto p : projectiles1) {
     if(p->CollidesWith(player)) {
       p->HandleCollision();
       player->HandleCollision();
-      cout<<"GAME OVER"<<endl;
+      gamestatus = 1;
     }
 }
 
@@ -392,33 +403,10 @@ for(auto p : projectiles2) {
     if(p->CollidesWith(player)) {
       p->HandleCollision();
       player->HandleCollision();
-      cout<<"GAME OVER"<<endl;
+      gamestatus = 1;
     }
 }
 
-for(auto a : aliens) {
-    if(a->CollidesWith(player)) {
-      a->HandleCollision();
-      player->HandleCollision();
-      cout<<"GAME OVER"<<endl;
-    }
-}
-  
-for(auto a : aliens1) {
-    if(a->CollidesWith(player)) {
-      a->HandleCollision();
-      player->HandleCollision();
-      cout<<"GAME OVER"<<endl; 
-    }
-}
-
-for(auto a : aliens2) {
-    if(a->CollidesWith(player)) {
-      a->HandleCollision();
-      player->HandleCollision();
-      cout<<"GAME OVER"<<endl;
-    }
-}
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
@@ -539,6 +527,14 @@ void SFApp::OnRender() {
   for(auto s: stars) {
     if(s->IsAlive()) {s->OnRender();}
   }
+  
+  for(auto m: messages){
+  if(gamestatus==1){m->OnRender();}
+}
+
+  for(auto m: messages1){
+  if(gamestatus==2){m->OnRender();}
+}
 
 
 

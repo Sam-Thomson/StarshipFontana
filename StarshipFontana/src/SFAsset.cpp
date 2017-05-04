@@ -3,7 +3,7 @@
 int SFAsset::SFASSETID=0;
 int NoOfCoins = 3;
 int NoOfKeys = 1;
-int gamestatus = 0;
+
 
 SFAsset::SFAsset(SFASSETTYPE type, std::shared_ptr<SFWindow> window): type(type), sf_window(window) {
   this->id   = ++SFASSETID;
@@ -47,6 +47,12 @@ SFAsset::SFAsset(SFASSETTYPE type, std::shared_ptr<SFWindow> window): type(type)
     break;
   case SFASSET_STAR:
     sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/star.png");
+    break;
+  case SFASSET_MESSAGE:
+    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/GameOver.png");
+    break;
+  case SFASSET_MESSAGE1:
+    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/LevelCompleted.png");
     break;
 
   }
@@ -254,7 +260,7 @@ bool SFAsset::IsAlive() {
 
 
 void SFAsset::HandleCollision() {
-  if(SFASSET_PROJECTILE == type || SFASSET_PROJECTILE1 == type || SFASSET_PLAYER == type || SFASSET_ALIEN == type) {
+  if(SFASSET_PROJECTILE == type || SFASSET_PROJECTILE1 == type || SFASSET_PLAYER == type) {
     SetNotAlive();
   }
 }

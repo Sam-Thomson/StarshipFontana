@@ -25,6 +25,7 @@ which will produce an executable file called "starship" in the
 top-level directory.  To execute this file do the following
 
 `$ ./starship`
+
  
 from the top-level directory.  The game will expect to find the
 `assets` directory under its current working directory.
@@ -33,3 +34,13 @@ from the top-level directory.  The game will expect to find the
 The sprites in this game come directly from 
 [SpriteLib](http://www.widgetworx.com/widgetworx/portfolio/spritelib.html) and are used
 under the terms of the [CPL 1.0](http://opensource.org/licenses/cpl1.0.php).
+Some of the sprites used are from:
+https://opengameart.org/
+The text of the game comes from:
+https://cooltext.com/
+
+## How to run ##
+To run my game, you need to enter into the terminal:
+$ g++ -c src/*.cpp
+$ g++ -o StarshipFontana *.o -lSDL2 -lSDL2_image
+$ ./StarshipFontana
